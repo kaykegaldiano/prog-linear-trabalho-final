@@ -1,5 +1,5 @@
 from lib2to3.pytree import convert
-# from pymprog import*
+from pymprog import*
 from math import*
 from random import*
 

@@ -33,3 +33,7 @@ del coordenadas[0]
 dis = distancia(coordenadas[0], coordenadas[1])
 
 n = len(coordenadas) # número de cidades (nós)
+
+begin('CV')
+
+x = var('x', iprod(range(n), range(n)), bool)
