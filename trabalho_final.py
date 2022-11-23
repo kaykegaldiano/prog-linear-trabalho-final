@@ -3,8 +3,8 @@ from math import*
 from random import*
 
 # bibliotecas para desenhar
-# from matplotlib import pyplot as plt
-# import matplotlib.patches as patches
+from matplotlib import pyplot as plt
+import matplotlib.patches as patches
 
 distancias = []
 
