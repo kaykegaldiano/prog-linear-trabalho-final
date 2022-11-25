@@ -56,7 +56,7 @@ for i in range(n-1):
 
 # segunda restrição
 for j in range(1,n):
-    sum(x[i,j] for i in range(n -1) if i != j) == 1
+    sum(x[i,j] for i in range(n-1) if j != i) == 1
 
 # eliminação de sub-rotas
 for i in range(n-1):
