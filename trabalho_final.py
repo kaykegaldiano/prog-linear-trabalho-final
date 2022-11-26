@@ -6,36 +6,38 @@ from random import*
 from matplotlib import pyplot as plt
 import matplotlib.patches as patches
 
-distancias = []
 
 def distancia(i, j):
-    aux = sqrt((j[0] - i[0]) ** 2 + (j[1] - i [1]) ** 2)
-    distancias.append(aux)
-    return aux
+  return sqrt((j[0] - i[0]) ** 2 + (j[1] - i[1]) ** 2)
 
 m = 100 # máximo das coordenadas
 M = 10000
 coordenadas = []
 
-f = open('./instancias/inst_10.txt') # lendo o arquivo com as instâncias
+arquivo = open('./instancias/inst_15.txt', mode='r') # abre o arquivo.txt
+# lê o conteudo de arquivo na variável conteudo
+conteudo = arquivo.read()
+# fecha o arquivo
+arquivo.close()
 
-lines = f.read()
-splited_lines = lines.splitlines()
-for row in splited_lines:
-    aux = []
-    for i in row.split(' '):
-        if (i != ''):
-            aux.append(int(i))
-    coordenadas.append(aux)
+# cria a lista 'linhas', onde cada linha é definida pela quebra de linha
+linhas = conteudo.split('\n')
+# remove linhas vazias
+linhas.remove('')
+# remove os espaços nos extremos de cada linha e define cada linha como uma lista
+colunas = list(map(lambda x: x.strip().split(), linhas))
+linhas.clear()
 
-f.close() # fecha o arquivo
+# converte os dados para inteiros e atribui para coordenadas
+for c in colunas:
+    coordenadas.append(list(map(lambda x: int(x), c)))
+
+colunas.clear()
 
 del coordenadas[0]
-
+coordenadas[0].append(0) # adicionando 0 no final da primeira coordenada
 coordenadas[0].append(0) # adicionando 0 no final da primeira coordenada
 coordenadas.append(coordenadas[0]) # duplicando o primeiro valor para o final
-
-dis = distancia(coordenadas[0], coordenadas[1])
 
 n = len(coordenadas) # número de cidades (nós)
 
@@ -48,8 +50,6 @@ w = var('w', n)
 # função objetivo
 minimize(sum(w[i] for i in range(1,n-1)))
 
-# restrições
-
 # primeira restrição
 for i in range(n-1):
     sum(x[i,j] for j in range(1,n) if i != j) == 1
@@ -58,11 +58,16 @@ for i in range(n-1):
 for j in range(1,n):
     sum(x[i,j] for i in range(n-1) if j != i) == 1
 
+# terceira restrição
+for i in range(n-1):
+  u[i] >= 0
+
 # eliminação de sub-rotas
 for i in range(n-1):
   for j in range(1,n):
     if i!=j:
-      u[j] >= u[i] - M * (1 - x[i,j]) + coordenadas[i][2] + distancia(coordenadas[i], coordenadas[j])
+      t = distancia(coordenadas[i], coordenadas[j])
+      u[j] >= u[i] - M * (1 - x[i,j]) + coordenadas[i][2] + t
 
 # quarta restrição
 for i in range(1,n-1):
