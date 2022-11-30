@@ -14,7 +14,7 @@ m = 100 # máximo das coordenadas
 M = 10000
 coordenadas = []
 
-arquivo = open('./instancias/inst_15.txt', mode='r') # abre o arquivo.txt
+arquivo = open('./instancias/inst_10.txt', mode='r') # abre o arquivo.txt
 # lê o conteudo de arquivo na variável conteudo
 conteudo = arquivo.read()
 # fecha o arquivo
@@ -59,8 +59,8 @@ for j in range(1,n):
     sum(x[i,j] for i in range(n-1) if j != i) == 1
 
 # terceira restrição
-for i in range(n-1):
-  u[i] >= 0
+# for i in range(n-1):
+#   u[i] >= 0
 
 # eliminação de sub-rotas
 for i in range(n-1):
@@ -71,6 +71,7 @@ for i in range(n-1):
 
 # quarta restrição
 for i in range(1,n-1):
+    # if w[i] >= 0:
     w[i] >= u[i] - coordenadas[i][3]
 
 # parametros de resolução
