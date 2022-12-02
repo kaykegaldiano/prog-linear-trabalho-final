@@ -1,20 +1,19 @@
-from pymprog import*
-from math import*
-from random import*
+from pymprog import *
+from math import *
+from random import *
 
 # bibliotecas para desenhar
 from matplotlib import pyplot as plt
 import matplotlib.patches as patches
 
-
 def distancia(i, j):
   return sqrt((j[0] - i[0]) ** 2 + (j[1] - i[1]) ** 2)
 
 m = 100 # máximo das coordenadas
-M = 10000
+M = 2000
 coordenadas = []
 
-arquivo = open('./instancias/inst_10.txt', mode='r') # abre o arquivo.txt
+arquivo = open('./instancias/inst_15.txt', mode='r') # abre o arquivo.txt
 # lê o conteudo de arquivo na variável conteudo
 conteudo = arquivo.read()
 # fecha o arquivo
@@ -62,6 +61,7 @@ for j in range(1,n):
 for i in range(n-1):
   for j in range(1,n):
     if i!=j:
+    #   M = n * (distancia(coordenadas[i], coordenadas[j]) + coordenadas[i][2]) # calculo do M
       t = distancia(coordenadas[i], coordenadas[j])
       u[j] >= u[i] - M * (1 - x[i,j]) + coordenadas[i][2] + t
 
